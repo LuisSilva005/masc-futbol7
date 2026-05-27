@@ -356,10 +356,9 @@ main{max-width:720px;margin:0 auto;padding:16px 14px 60px}
 </div>
 
 <!-- FIREBASE -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
 const firebaseConfig = {
   apiKey: "AIzaSyBd2J6qd0aD53eHZ7QKq0KbVjDJ9NRuMMc",
   authDomain: "masc-futbol7.firebaseapp.com",
@@ -368,13 +367,9 @@ const firebaseConfig = {
   messagingSenderId: "242389266428",
   appId: "1:242389266428:web:6d2a7397b27daeb2b54c79"
 };
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-window._db = db;
-window._fbModules = { doc, getDoc, setDoc, collection, getDocs, orderBy, query };
-
-await window._initApp();
+firebase.initializeApp(firebaseConfig);
+const _db = firebase.firestore();
+window._db = _db;
 </script>
 
 <script>
@@ -435,23 +430,22 @@ function updateAdminUI() {
 
 // ── FIREBASE HELPERS ────────────────────────────────
 async function fbGet(path) {
-  const { doc, getDoc } = window._fbModules;
-  const ref = doc(window._db, ...path.split('/'));
-  const snap = await getDoc(ref);
-  return snap.exists() ? snap.data() : null;
+  const parts = path.split('/');
+  const ref = window._db.collection(parts[0]).doc(parts[1]);
+  const snap = await ref.get();
+  return snap.exists ? snap.data() : null;
 }
 async function fbSet(path, data) {
-  const { doc, setDoc } = window._fbModules;
-  await setDoc(doc(window._db, ...path.split('/')), data, { merge: true });
+  const parts = path.split('/');
+  await window._db.collection(parts[0]).doc(parts[1]).set(data, { merge: true });
 }
 async function fbGetCol(path) {
-  const { collection, getDocs } = window._fbModules;
-  const snap = await getDocs(collection(window._db, path));
+  const snap = await window._db.collection(path).get();
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 }
 
 // ── INIT ────────────────────────────────────────────
-window._initApp = async function() {
+async function initApp() {
   // Load players
   let players = await fbGetCol('players');
   if (!players.length) {
@@ -487,7 +481,10 @@ window._initApp = async function() {
   state.meses.forEach(m => { if (!m.pagos) m.pagos = {}; initPagos(m); });
 
   renderJornada();
-};
+}
+
+// Call initApp when page loads
+window.addEventListener('load', () => initApp());
 
 // ── HELPERS ─────────────────────────────────────────
 function getJ() { return state.jornadas[state.currentJornada]; }

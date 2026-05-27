@@ -328,7 +328,7 @@ main{max-width:720px;margin:0 auto;padding:16px 14px 60px}
     <span class="lock-icon" id="plantel-lock">🔒 Solo admin</span>
   </div>
   <table class="stats-table">
-    <thead><tr><th>#</th><th>Nombre</th><th>Posición</th><th>Estado</th><th></th></tr></thead>
+    <thead><tr><th>#</th><th>Nombre</th><th>Playera</th><th>Posición</th><th>Estado</th><th></th></tr></thead>
     <tbody id="plantel-tbody"></tbody>
   </table>
 </div>
@@ -458,7 +458,7 @@ window._initApp = async function() {
     // seed default players
     const defaults = ['Luis','Abraham','Chisthian','Armando','Brandon','Chuy','Jese','Martín','Jorge','Saúl','Sahid','Solo'];
     for (let i = 0; i < defaults.length; i++) {
-      const p = { id: i+1, name: defaults[i], position: 'Polivalente', active: true, order: i };
+      const p = { id: i+1, name: defaults[i], position: 'Polivalente', active: true, order: i, jersey: '' };
       await fbSet(`players/${i+1}`, p);
     }
     players = await fbGetCol('players');
@@ -570,7 +570,7 @@ function renderJornada() {
     const s = j.stats[p.id];
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><div class="player-cell"><div class="avatar">${av(p.name)}</div><span class="player-name">${p.name}</span></div></td>
+      <td><div class="player-cell"><div class="avatar">${av(p.name)}</div><span class="player-name">${p.name}</span>${p.jersey?`<span style="font-size:11px;color:var(--text3);margin-left:2px">#${p.jersey}</span>`:''}</div></td>
       <td><button class="tog ${s.asistio?'on':'off'}" data-pid="${p.id}" data-f="asistio" onclick="toggleStat(${p.id},'asistio')" ${!isAdmin?'disabled':''}></button></td>
       <td><button class="tog ${s.pago?'on':'off'}" data-pid="${p.id}" data-f="pago" onclick="toggleStat(${p.id},'pago')" ${!isAdmin?'disabled':''}></button></td>
       <td><input class="num-in" type="number" min="0" value="${s.goles}" oninput="setStat(${p.id},'goles',this.value)" ${!isAdmin?'disabled':''}></td>
@@ -672,12 +672,14 @@ function renderStats() {
   });
 
   document.getElementById('metrics-grid').innerHTML = `
-    <div class="metric-card"><div class="metric-val">${state.jornadas.length}</div><div class="metric-label">Jornadas</div></div>
+  const puntos = (wins * 3) + (draws * 1);
+  document.getElementById('metrics-grid').innerHTML = `
+    <div class="metric-card"><div class="metric-val yellow">${puntos}</div><div class="metric-label">Puntos</div></div>
     <div class="metric-card"><div class="metric-val green">${wins}</div><div class="metric-label">Victorias</div></div>
     <div class="metric-card"><div class="metric-val">${draws}</div><div class="metric-label">Empates</div></div>
     <div class="metric-card"><div class="metric-val red">${losses}</div><div class="metric-label">Derrotas</div></div>
     <div class="metric-card"><div class="metric-val">${golesFavor}</div><div class="metric-label">Goles favor</div></div>
-    <div class="metric-card"><div class="metric-val yellow">${golesFavor - golesContra >= 0 ? '+' : ''}${golesFavor - golesContra}</div><div class="metric-label">Diferencia</div></div>
+    <div class="metric-card"><div class="metric-val">${golesFavor - golesContra >= 0 ? '+' : ''}${golesFavor - golesContra}</div><div class="metric-label">Diferencia</div></div>
   `;
 
   const byGoles = Object.values(acc).filter(p=>p.goles>0).sort((a,b)=>b.goles-a.goles).slice(0,3);
@@ -869,6 +871,9 @@ function renderPlantel() {
         </div>
       </td>
       <td>
+        <input class="num-in" type="number" min="0" max="99" value="${p.jersey||''}" placeholder="—" style="width:46px" onchange="changeJersey(${p.id},this.value)" ${!isAdmin?'disabled':''}>
+      </td>
+      <td>
         <select class="pos-select" onchange="changePos(${p.id},this.value)" ${!isAdmin?'disabled':''}>
           ${POSITIONS.map(pos=>`<option${p.position===pos?' selected':''}>${pos}</option>`).join('')}
         </select>
@@ -880,6 +885,11 @@ function renderPlantel() {
   });
 }
 
+async function changeJersey(id, val) {
+  if (!isAdmin) return;
+  const p = state.players.find(x=>x.id===id);
+  if (p) { p.jersey = val.trim(); await fbSet(`players/${id}`, { jersey: p.jersey }); renderJornada(); }
+}
 async function renamePlayer(id, name) {
   if (!isAdmin||!name.trim()) return;
   const p = state.players.find(x=>x.id===id);
@@ -900,7 +910,7 @@ async function addPlayer() {
   const name = prompt('Nombre del jugador:');
   if (!name||!name.trim()) return;
   const id = Date.now();
-  const p = { id, name: name.trim(), position: 'Polivalente', active: true, order: state.players.length };
+  const p = { id, name: name.trim(), position: 'Polivalente', active: true, order: state.players.length, jersey: '' };
   await fbSet(`players/${id}`, p);
   state.players.push(p);
   state.jornadas.forEach(j => { j.stats[id]={asistio:false,pago:false,goles:0,amarillas:0,rojas:0}; });

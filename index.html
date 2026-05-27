@@ -5,161 +5,169 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MASC · Fútbol 7</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --green: #00C170;
-  --green-dark: #009954;
-  --green-dim: rgba(0,193,112,0.12);
-  --red: #FF4545;
-  --red-dim: rgba(255,69,69,0.12);
-  --yellow: #FFD600;
-  --yellow-dim: rgba(255,214,0,0.12);
-  --bg: #0D0D0D;
-  --bg2: #161616;
-  --bg3: #1E1E1E;
-  --bg4: #272727;
-  --border: rgba(255,255,255,0.08);
-  --border2: rgba(255,255,255,0.14);
-  --text: #F0F0F0;
-  --text2: #888;
-  --text3: #555;
-  --radius: 10px;
-  --radius-lg: 16px;
+:root{
+  --green:#00C170;--green-dark:#009954;--green-dim:rgba(0,193,112,0.12);
+  --red:#FF4545;--red-dim:rgba(255,69,69,0.12);
+  --yellow:#FFD600;--yellow-dim:rgba(255,214,0,0.15);
+  --blue:#4A9EFF;--blue-dim:rgba(74,158,255,0.12);
+  --bg:#0D0D0D;--bg2:#161616;--bg3:#1E1E1E;--bg4:#272727;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#F0F0F0;--text2:#888;--text3:#505050;
+  --radius:10px;--radius-lg:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
-
-/* HEADER */
-header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--green)}
-.logo span{color:var(--text2);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:400;letter-spacing:0;margin-left:8px;vertical-align:middle}
-.header-meta{font-size:12px;color:var(--text3)}
-
-/* NAV */
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:var(--green)}
+.logo span{color:var(--text2);font-size:13px;font-family:'DM Sans',sans-serif;font-weight:400;letter-spacing:0;margin-left:8px;vertical-align:middle}
+.admin-badge{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--yellow);cursor:pointer;padding:4px 10px;border:1px solid var(--yellow-dim);border-radius:20px;background:var(--yellow-dim)}
+.admin-badge.off{color:var(--text3);border-color:var(--border);background:none}
 nav{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch}
 nav::-webkit-scrollbar{display:none}
-.nav-btn{flex:1;min-width:80px;padding:12px 8px;border:none;background:none;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:6px}
-.nav-btn svg{width:16px;height:16px;flex-shrink:0}
+.nav-btn{flex:1;min-width:72px;padding:11px 6px;border:none;background:none;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:5px}
+.nav-btn svg{width:15px;height:15px;flex-shrink:0}
 .nav-btn.active{color:var(--green);border-bottom-color:var(--green)}
-.nav-btn:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.04)}
-
-/* MAIN */
-main{max-width:720px;margin:0 auto;padding:20px 16px 40px}
+.nav-btn:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.03)}
+main{max-width:720px;margin:0 auto;padding:16px 14px 60px}
 .section{display:none}.section.active{display:block}
+.section-label{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:12px}
 
-/* JORNADA NAV */
-.j-nav{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+/* JORNADA */
+.j-nav{display:flex;align-items:center;gap:8px;margin-bottom:16px}
 .j-info{flex:1}
-.j-num{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1px;line-height:1}
-.j-date{font-size:13px;color:var(--text2);margin-top:2px}
-.icon-btn{width:34px;height:34px;border:1px solid var(--border2);border-radius:8px;background:var(--bg3);color:var(--text2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0}
+.j-num{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;line-height:1}
+.j-date{font-size:12px;color:var(--text2);margin-top:2px}
+.icon-btn{width:32px;height:32px;border:1px solid var(--border2);border-radius:8px;background:var(--bg3);color:var(--text2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0}
 .icon-btn:hover{border-color:var(--green);color:var(--green)}
-.btn{padding:8px 16px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg3);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn{padding:7px 14px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg3);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
 .btn:hover{border-color:var(--green);color:var(--green)}
-.btn-green{background:var(--green);border-color:var(--green);color:#000}
-.btn-green:hover{background:var(--green-dark);border-color:var(--green-dark);color:#000}
-
-/* PARTIDO CARD */
-.partido-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:16px}
-.partido-scores{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-bottom:12px}
-.team-side{display:flex;flex-direction:column;gap:6px}
+.btn-green{background:var(--green);border-color:var(--green);color:#000!important}
+.btn-green:hover{background:var(--green-dark);border-color:var(--green-dark)}
+.btn-red{background:var(--red-dim);border-color:var(--red);color:var(--red)!important}
+.partido-scores{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-bottom:12px}
+.team-side{display:flex;flex-direction:column;gap:5px}
 .team-side.away{align-items:flex-end}
 .team-name-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em}
-.score-box{display:flex;align-items:center;gap:8px}
-.score-in{width:52px;height:52px;border:1px solid var(--border2);border-radius:10px;background:var(--bg3);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:32px;text-align:center;outline:none;transition:border-color .2s}
+.score-in{width:50px;height:50px;border:1px solid var(--border2);border-radius:10px;background:var(--bg3);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:30px;text-align:center;outline:none;transition:border-color .2s}
 .score-in:focus{border-color:var(--green)}
-.vs-tag{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--text3);letter-spacing:1px}
-.rival-in{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg3);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border-color .2s}
-.rival-in:focus{border-color:var(--green)}
-.rival-in::placeholder{color:var(--text3)}
-.nota-in{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg3);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;margin-top:8px;transition:border-color .2s;resize:none;height:40px}
-.nota-in:focus{border-color:var(--border2)}
-.nota-in::placeholder{color:var(--text3)}
+.score-in:disabled{opacity:.4;cursor:not-allowed}
+.vs-tag{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text3);letter-spacing:1px}
+.text-in{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg3);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border-color .2s}
+.text-in:focus{border-color:var(--green)}
+.text-in::placeholder{color:var(--text3)}
+.text-in:disabled{opacity:.4;cursor:not-allowed}
 .result-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.04em;margin-top:8px}
 .rb-win{background:var(--green-dim);color:var(--green)}
-.rb-draw{background:rgba(255,255,255,0.08);color:var(--text2)}
+.rb-draw{background:rgba(255,255,255,0.07);color:var(--text2)}
 .rb-loss{background:var(--red-dim);color:var(--red)}
 
 /* TABLE */
-.section-label{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;margin-top:4px}
 .stats-table{width:100%;border-collapse:collapse}
 .stats-table th{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:6px 8px;text-align:center;border-bottom:1px solid var(--border)}
-.stats-table th:first-child{text-align:left;padding-left:4px}
-.stats-table td{padding:10px 8px;border-bottom:1px solid var(--border);text-align:center;vertical-align:middle}
-.stats-table td:first-child{text-align:left;padding-left:4px}
+.stats-table th:first-child{text-align:left;padding-left:2px}
+.stats-table td{padding:9px 8px;border-bottom:1px solid var(--border);text-align:center;vertical-align:middle}
+.stats-table td:first-child{text-align:left;padding-left:2px}
 .stats-table tr:last-child td{border-bottom:none}
 .stats-table tbody tr{transition:background .15s}
-.stats-table tbody tr:hover{background:rgba(255,255,255,0.03)}
-
-/* PLAYER NAME CELL */
-.player-cell{display:flex;align-items:center;gap:10px}
-.avatar{width:30px;height:30px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--green);flex-shrink:0;border:1px solid var(--border)}
-.player-name{font-size:14px;font-weight:500}
-
-/* TOGGLE */
-.tog{width:38px;height:22px;border-radius:11px;border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+.stats-table tbody tr:hover{background:rgba(255,255,255,0.02)}
+.player-cell{display:flex;align-items:center;gap:8px}
+.avatar{width:28px;height:28px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--green);flex-shrink:0;border:1px solid var(--border)}
+.player-name{font-size:13px;font-weight:500}
+.tog{width:36px;height:20px;border-radius:10px;border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
 .tog.on{background:var(--green)}.tog.off{background:var(--bg4);border:1px solid var(--border2)}
-.tog::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;transition:left .2s}
+.tog::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:3px;transition:left .2s}
 .tog.on::after{left:19px}.tog.off::after{left:2px}
-
-/* NUMBER INPUT */
-.num-in{width:44px;padding:5px 4px;border:1px solid var(--border);border-radius:8px;background:var(--bg3);color:var(--text);font-size:14px;text-align:center;outline:none;transition:border-color .2s}
+.tog:disabled{opacity:.4;cursor:not-allowed}
+.num-in{width:42px;padding:4px;border:1px solid var(--border);border-radius:8px;background:var(--bg3);color:var(--text);font-size:13px;text-align:center;outline:none;transition:border-color .2s}
 .num-in:focus{border-color:var(--green)}
-
-/* TOTALES */
-.totales-bar{display:flex;gap:16px;padding:12px 0 0;border-top:1px solid var(--border);margin-top:4px;font-size:13px;color:var(--text2)}
-.tot-item{display:flex;align-items:center;gap:6px}
-.tot-dot{width:8px;height:8px;border-radius:50%}
+.num-in:disabled{opacity:.4;cursor:not-allowed}
+.totales-bar{display:flex;gap:14px;padding:10px 0 0;border-top:1px solid var(--border);margin-top:2px;font-size:12px;color:var(--text2);flex-wrap:wrap}
+.tot-item{display:flex;align-items:center;gap:5px}
+.tot-dot{width:7px;height:7px;border-radius:50%}
 
 /* METRICS */
-.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
-@media(max-width:400px){.metrics-grid{grid-template-columns:repeat(2,1fr)}}
-.metric-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 12px;text-align:center}
-.metric-val{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--text);line-height:1}
-.metric-val.green{color:var(--green)}
-.metric-val.red{color:var(--red)}
-.metric-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+@media(max-width:380px){.metrics-grid{grid-template-columns:repeat(2,1fr)}}
+.metric-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px;text-align:center}
+.metric-val{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--text);line-height:1}
+.metric-val.green{color:var(--green)}.metric-val.red{color:var(--red)}.metric-val.yellow{color:var(--yellow)}
+.metric-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
 
-/* RANKING */
-.rank-num{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text3);width:24px}
-.rank-num.top{color:var(--green)}
+/* TOP 3 */
+.top3-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.top3-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px}
+.top3-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+.top3-item{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
+.top3-item:last-child{border-bottom:none}
+.top3-rank{font-family:'Bebas Neue',sans-serif;font-size:18px;width:20px;text-align:center}
+.top3-rank.r1{color:var(--yellow)}.top3-rank.r2{color:var(--text2)}.top3-rank.r3{color:#cd7f32}
+.top3-name{flex:1;font-size:13px}
+.top3-val{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--green)}
+
+/* COMPROMISO */
+.commit-bar-wrap{width:100%;height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;margin-top:4px}
+.commit-bar{height:100%;border-radius:3px;transition:width .4s}
+
+/* PAGOS */
+.mes-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.mes-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px}
+.pago-status{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s}
+.ps-paid{background:var(--green-dim);color:var(--green)}
+.ps-partial{background:var(--yellow-dim);color:var(--yellow)}
+.ps-pending{background:var(--red-dim);color:var(--red)}
+.monto-in{width:70px;padding:4px 6px;border:1px solid var(--border);border-radius:8px;background:var(--bg3);color:var(--text);font-size:13px;text-align:center;outline:none}
+.monto-in:focus{border-color:var(--green)}
+.monto-in:disabled{opacity:.4;cursor:not-allowed}
+.pagos-summary{display:flex;gap:12px;flex-wrap:wrap;padding:10px 0 0;border-top:1px solid var(--border);margin-top:4px;font-size:12px;color:var(--text2)}
 
 /* HISTORIAL */
-.h-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:border-color .2s}
+.h-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:border-color .2s}
 .h-card:hover{border-color:var(--border2)}
-.h-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.h-jnum{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.5px}
+.h-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.h-jnum{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px}
 .h-date{font-size:12px;color:var(--text3)}
-.h-score{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;margin-bottom:6px}
-.h-meta{display:flex;gap:14px;font-size:12px;color:var(--text2)}
-.h-meta span{display:flex;align-items:center;gap:4px}
+.h-score{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;margin-bottom:5px}
+.h-meta{display:flex;gap:12px;font-size:12px;color:var(--text2);flex-wrap:wrap}
 
 /* PLANTEL */
-.pos-select{padding:5px 8px;border:1px solid var(--border);border-radius:8px;background:var(--bg3);color:var(--text);font-size:13px;outline:none;cursor:pointer}
+.pos-select{padding:4px 6px;border:1px solid var(--border);border-radius:8px;background:var(--bg3);color:var(--text);font-size:12px;outline:none;cursor:pointer}
+.pos-select:disabled{opacity:.4;cursor:not-allowed}
 .status-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
 .sb-active{background:var(--green-dim);color:var(--green)}
-.sb-inactive{background:rgba(255,255,255,0.06);color:var(--text3)}
-.name-edit{background:none;border:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;width:90px;outline:none;border-bottom:1px solid transparent;transition:border-color .2s}
+.sb-inactive{background:rgba(255,255,255,0.05);color:var(--text3)}
+.name-edit{background:none;border:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;width:80px;outline:none;border-bottom:1px solid transparent;transition:border-color .2s}
 .name-edit:focus{border-bottom-color:var(--green)}
+.name-edit:disabled{opacity:.6;cursor:not-allowed}
 
-/* SAVE INDICATOR */
-.save-dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-left:6px;opacity:0;transition:opacity .3s}
-.save-dot.show{opacity:1}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay.hidden{display:none}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:24px;width:90%;max-width:340px;text-align:center}
+.modal h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;margin-bottom:8px}
+.modal p{font-size:13px;color:var(--text2);margin-bottom:16px}
+.pin-in{width:100%;padding:12px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg3);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:28px;text-align:center;outline:none;letter-spacing:8px;margin-bottom:12px}
+.pin-in:focus{border-color:var(--green)}
+.pin-error{font-size:12px;color:var(--red);margin-bottom:10px;min-height:16px}
+.modal-btns{display:flex;gap:8px;justify-content:center}
 
-/* SCROLLBAR */
+/* LOADING */
+.loading{text-align:center;padding:40px;color:var(--text3);font-size:13px}
+.spinner{width:24px;height:24px;border:2px solid var(--border2);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-state{text-align:center;padding:32px;color:var(--text3);font-size:13px}
+
+/* LOCK ICON */
+.lock-icon{opacity:.4;font-size:11px;color:var(--text3)}
+
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-
-/* EMPTY */
-.empty-state{text-align:center;padding:40px 20px;color:var(--text3);font-size:14px}
-
-/* RESPONSIVE TWEAKS */
 @media(max-width:480px){
-  .score-in{width:46px;height:46px;font-size:28px}
-  .stats-table th:nth-child(5),.stats-table td:nth-child(5),
   .stats-table th:nth-child(6),.stats-table td:nth-child(6){display:none}
+  .top3-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -167,7 +175,10 @@ main{max-width:720px;margin:0 auto;padding:20px 16px 40px}
 
 <header>
   <div class="logo">MASC <span>Fútbol 7</span></div>
-  <div class="header-meta" id="header-meta">Temporada 2025</div>
+  <div id="admin-btn" class="admin-badge off" onclick="toggleAdmin()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    <span id="admin-label">Admin</span>
+  </div>
 </header>
 
 <nav>
@@ -175,9 +186,13 @@ main{max-width:720px;margin:0 auto;padding:20px 16px 40px}
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
     Jornada
   </button>
-  <button class="nav-btn" onclick="showTab('tabla',this)">
+  <button class="nav-btn" onclick="showTab('stats',this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-    Tabla
+    Stats
+  </button>
+  <button class="nav-btn" onclick="showTab('pagos',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    Pagos
   </button>
   <button class="nav-btn" onclick="showTab('plantel',this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -196,47 +211,49 @@ main{max-width:720px;margin:0 auto;padding:20px 16px 40px}
   <div class="j-nav">
     <div class="j-info">
       <div class="j-num" id="j-num">JORNADA 1</div>
-      <div class="j-date" id="j-date">Domingo 24 de mayo 2025</div>
+      <div class="j-date" id="j-date">Cargando...</div>
     </div>
-    <button class="icon-btn" onclick="prevJ()" title="Anterior">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    <button class="icon-btn" onclick="prevJ()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
-    <button class="icon-btn" onclick="nextJ()" title="Siguiente">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <button class="icon-btn" onclick="nextJ()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
-    <button class="btn" onclick="addJornada()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    <button class="btn" id="btn-nueva-jornada" onclick="addJornada()" style="display:none">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       Nueva
     </button>
   </div>
 
-  <div class="partido-card">
+  <div class="card">
     <div class="partido-scores">
       <div class="team-side">
         <div class="team-name-label">MASC</div>
-        <input class="score-in" type="number" min="0" id="score-home" placeholder="—" oninput="saveScore()">
+        <input class="score-in" type="number" min="0" id="score-home" placeholder="—" oninput="saveScore()" disabled>
       </div>
       <div class="vs-tag">VS</div>
       <div class="team-side away">
         <div class="team-name-label">RIVAL</div>
-        <input class="score-in" type="number" min="0" id="score-away" placeholder="—" oninput="saveScore()">
+        <input class="score-in" type="number" min="0" id="score-away" placeholder="—" oninput="saveScore()" disabled>
       </div>
     </div>
-    <input class="rival-in" type="text" id="rival-name" placeholder="Nombre del rival..." oninput="saveScore()">
-    <textarea class="nota-in" id="j-nota" placeholder="Notas: cancha, hora, árbitro..." oninput="saveNota()"></textarea>
+    <input class="text-in" type="text" id="rival-name" placeholder="Nombre del rival..." oninput="saveScore()" disabled style="margin-bottom:8px">
+    <input class="text-in" type="text" id="j-fecha-edit" placeholder="Fecha del partido..." oninput="saveFecha()" disabled>
+    <textarea class="text-in" id="j-nota" placeholder="Notas: cancha, hora, árbitro..." oninput="saveNota()" disabled style="margin-top:8px;resize:none;height:38px"></textarea>
     <div id="result-badge-wrap"></div>
   </div>
 
   <div class="section-label">Asistencia &amp; Estadísticas</div>
-  <table class="stats-table">
+  <div id="jornada-loading" class="loading"><div class="spinner"></div>Cargando...</div>
+  <table class="stats-table" id="jornada-table" style="display:none">
     <thead>
       <tr>
         <th>Jugador</th>
-        <th title="Asistió">Asistió</th>
-        <th title="Pagó cuota">Pagó</th>
+        <th>Asistió</th>
+        <th>Pagó</th>
         <th>Goles</th>
-        <th title="Tarjetas amarillas">🟨</th>
-        <th title="Tarjetas rojas">🟥</th>
+        <th>🟨</th>
+        <th>🟥</th>
       </tr>
     </thead>
     <tbody id="players-tbody"></tbody>
@@ -244,339 +261,692 @@ main{max-width:720px;margin:0 auto;padding:20px 16px 40px}
   <div class="totales-bar" id="totales-bar"></div>
 </div>
 
-<!-- TABLA -->
-<div id="tab-tabla" class="section">
+<!-- STATS -->
+<div id="tab-stats" class="section">
   <div class="metrics-grid" id="metrics-grid"></div>
-  <div class="section-label">Ranking de jugadores</div>
-  <table class="stats-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th style="text-align:left">Jugador</th>
-        <th>PJ</th>
-        <th>Asist.</th>
-        <th>Pagos</th>
-        <th>Goles</th>
-        <th>🟨</th>
-        <th>🟥</th>
-      </tr>
-    </thead>
-    <tbody id="tabla-tbody"></tbody>
-  </table>
+  <div class="top3-grid" id="top3-grid"></div>
+  <div class="section-label" style="margin-top:4px">Compromiso del equipo</div>
+  <div class="card" style="padding:10px 14px">
+    <table class="stats-table">
+      <thead><tr><th>Jugador</th><th>PJ</th><th>Asist.</th><th>%</th><th>Goles</th></tr></thead>
+      <tbody id="compromiso-tbody"></tbody>
+    </table>
+  </div>
+  <div class="section-label" style="margin-top:4px">Tabla completa</div>
+  <div class="card" style="padding:10px 14px">
+    <table class="stats-table">
+      <thead><tr><th>#</th><th>Jugador</th><th>PJ</th><th>Asist.</th><th>Goles</th><th>🟨</th><th>🟥</th></tr></thead>
+      <tbody id="tabla-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PAGOS -->
+<div id="tab-pagos" class="section">
+  <div class="mes-header">
+    <div>
+      <div class="mes-title" id="mes-title">MAYO 2025</div>
+      <div style="font-size:12px;color:var(--text2)" id="mes-monto-label">Monto: —</div>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center">
+      <button class="icon-btn" onclick="prevMes()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="icon-btn" onclick="nextMes()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <button class="btn" id="btn-nuevo-mes" onclick="addMes()" style="display:none">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Mes
+      </button>
+    </div>
+  </div>
+  <div id="pagos-loading" class="loading"><div class="spinner"></div>Cargando...</div>
+  <div id="pagos-content" style="display:none">
+    <div class="card" style="padding:10px 14px;margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+        <span style="font-size:13px;color:var(--text2)">Monto mensual:</span>
+        <input class="monto-in" type="number" id="monto-mes" placeholder="$" oninput="saveMonto()" disabled>
+      </div>
+    </div>
+    <table class="stats-table">
+      <thead><tr><th>Jugador</th><th>Estado</th><th>Pagado</th><th>Resta</th></tr></thead>
+      <tbody id="pagos-tbody"></tbody>
+    </table>
+    <div class="pagos-summary" id="pagos-summary"></div>
+  </div>
 </div>
 
 <!-- PLANTEL -->
 <div id="tab-plantel" class="section">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-    <div class="section-label" style="margin:0">Plantel activo</div>
-    <button class="btn" onclick="addPlayer()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <div class="section-label" style="margin:0">Plantel</div>
+    <button class="btn" id="btn-agregar-jugador" onclick="addPlayer()" style="display:none">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       Agregar
     </button>
+    <span class="lock-icon" id="plantel-lock">🔒 Solo admin</span>
   </div>
   <table class="stats-table">
-    <thead>
-      <tr><th>#</th><th style="text-align:left">Nombre</th><th>Posición</th><th>Estado</th><th></th></tr>
-    </thead>
+    <thead><tr><th>#</th><th>Nombre</th><th>Posición</th><th>Estado</th><th></th></tr></thead>
     <tbody id="plantel-tbody"></tbody>
   </table>
 </div>
 
 <!-- HISTORIAL -->
 <div id="tab-historial" class="section">
-  <div class="section-label">Todas las jornadas</div>
+  <div class="section-label">Historial de jornadas</div>
   <div id="historial-list"></div>
 </div>
 
 </main>
 
-<script>
-const POSITIONS = ['Portero','Defensa','Mediocampista','Delantero','Polivalente'];
-const STORAGE_KEY = 'masc_futbol7_v1';
+<!-- MODAL PIN -->
+<div class="modal-overlay hidden" id="pin-modal">
+  <div class="modal">
+    <h3>Modo Admin</h3>
+    <p>Ingresa tu PIN para habilitar la edición</p>
+    <input class="pin-in" type="password" id="pin-input" maxlength="6" placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()">
+    <div class="pin-error" id="pin-error"></div>
+    <div class="modal-btns">
+      <button class="btn" onclick="closePinModal()">Cancelar</button>
+      <button class="btn btn-green" onclick="checkPin()">Entrar</button>
+    </div>
+  </div>
+</div>
 
-function loadState(){
-  try{const s=localStorage.getItem(STORAGE_KEY);if(s)return JSON.parse(s);}catch(e){}
-  return null;
-}
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-function saveState(){
-  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));showSave();}catch(e){}
-}
-
-let state = loadState() || {
-  currentJornada: 0,
-  players: [
-    {id:1,name:'Luis',position:'Polivalente',active:true},
-    {id:2,name:'Abraham',position:'Polivalente',active:true},
-    {id:3,name:'Chisthian',position:'Polivalente',active:true},
-    {id:4,name:'Armando',position:'Polivalente',active:true},
-    {id:5,name:'Brandon',position:'Polivalente',active:true},
-    {id:6,name:'Chuy',position:'Polivalente',active:true},
-    {id:7,name:'Jese',position:'Polivalente',active:true},
-    {id:8,name:'Martín',position:'Polivalente',active:true},
-    {id:9,name:'Jorge',position:'Polivalente',active:true},
-    {id:10,name:'Saúl',position:'Polivalente',active:true},
-    {id:11,name:'Sahid',position:'Polivalente',active:true},
-    {id:12,name:'Solo',position:'Polivalente',active:true}
-  ],
-  jornadas: [{
-    num:1,
-    fecha:'Domingo 24 de mayo 2025',
-    rival:'',scoreHome:'',scoreAway:'',nota:'',stats:{}
-  }]
+const firebaseConfig = {
+  apiKey: "AIzaSyBd2J6qd0aD53eHZ7QKq0KbVjDJ9NRuMMc",
+  authDomain: "masc-futbol7.firebaseapp.com",
+  projectId: "masc-futbol7",
+  storageBucket: "masc-futbol7.firebasestorage.app",
+  messagingSenderId: "242389266428",
+  appId: "1:242389266428:web:6d2a7397b27daeb2b54c79"
 };
 
-function getJ(){return state.jornadas[state.currentJornada];}
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+window._db = db;
+window._fbModules = { doc, getDoc, setDoc, collection, getDocs, orderBy, query };
 
-function initStats(j){
-  state.players.forEach(p=>{
-    if(!j.stats[p.id]) j.stats[p.id]={asistio:false,pago:false,goles:0,amarillas:0,rojas:0};
+await window._initApp();
+</script>
+
+<script>
+const ADMIN_PIN = '1924';
+const POSITIONS = ['Portero','Defensa','Mediocampista','Delantero','Polivalente'];
+const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+let isAdmin = false;
+let state = {
+  currentJornada: 0,
+  currentMes: 0,
+  players: [],
+  jornadas: [],
+  meses: []
+};
+
+// ── ADMIN ──────────────────────────────────────────
+function toggleAdmin() {
+  if (isAdmin) { isAdmin = false; updateAdminUI(); return; }
+  document.getElementById('pin-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('pin-input').focus(), 100);
+}
+function checkPin() {
+  const val = document.getElementById('pin-input').value;
+  if (val === ADMIN_PIN) {
+    isAdmin = true;
+    closePinModal();
+    updateAdminUI();
+    renderCurrentTab();
+  } else {
+    document.getElementById('pin-error').textContent = 'PIN incorrecto';
+    document.getElementById('pin-input').value = '';
+  }
+}
+function closePinModal() {
+  document.getElementById('pin-modal').classList.add('hidden');
+  document.getElementById('pin-input').value = '';
+  document.getElementById('pin-error').textContent = '';
+}
+function updateAdminUI() {
+  const btn = document.getElementById('admin-btn');
+  const lbl = document.getElementById('admin-label');
+  if (isAdmin) {
+    btn.classList.remove('off'); lbl.textContent = 'Admin ✓';
+  } else {
+    btn.classList.add('off'); lbl.textContent = 'Admin';
+  }
+  // show/hide admin-only buttons
+  ['btn-nueva-jornada','btn-nuevo-mes','btn-agregar-jugador'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = isAdmin ? 'inline-flex' : 'none';
+  });
+  document.getElementById('plantel-lock').style.display = isAdmin ? 'none' : 'inline';
+  // re-enable/disable inputs
+  setJornadaInputs();
+  setPagosInputs();
+}
+
+// ── FIREBASE HELPERS ────────────────────────────────
+async function fbGet(path) {
+  const { doc, getDoc } = window._fbModules;
+  const ref = doc(window._db, ...path.split('/'));
+  const snap = await getDoc(ref);
+  return snap.exists() ? snap.data() : null;
+}
+async function fbSet(path, data) {
+  const { doc, setDoc } = window._fbModules;
+  await setDoc(doc(window._db, ...path.split('/')), data, { merge: true });
+}
+async function fbGetCol(path) {
+  const { collection, getDocs } = window._fbModules;
+  const snap = await getDocs(collection(window._db, path));
+  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+}
+
+// ── INIT ────────────────────────────────────────────
+window._initApp = async function() {
+  // Load players
+  let players = await fbGetCol('players');
+  if (!players.length) {
+    // seed default players
+    const defaults = ['Luis','Abraham','Chisthian','Armando','Brandon','Chuy','Jese','Martín','Jorge','Saúl','Sahid','Solo'];
+    for (let i = 0; i < defaults.length; i++) {
+      const p = { id: i+1, name: defaults[i], position: 'Polivalente', active: true, order: i };
+      await fbSet(`players/${i+1}`, p);
+    }
+    players = await fbGetCol('players');
+  }
+  state.players = players.sort((a,b) => a.order - b.order);
+
+  // Load jornadas
+  let jornadas = await fbGetCol('jornadas');
+  if (!jornadas.length) {
+    const j = { num: 1, fecha: 'Domingo 24 de mayo 2025', rival: '', scoreHome: '', scoreAway: '', nota: '', stats: {} };
+    await fbSet('jornadas/1', j);
+    jornadas = [{ id: '1', ...j }];
+  }
+  state.jornadas = jornadas.sort((a,b) => a.num - b.num);
+  state.jornadas.forEach(j => { if (!j.stats) j.stats = {}; initStats(j); });
+
+  // Load meses
+  let meses = await fbGetCol('meses');
+  if (!meses.length) {
+    const now = new Date();
+    const m = { id: `${now.getFullYear()}-${now.getMonth()}`, year: now.getFullYear(), month: now.getMonth(), monto: 0, pagos: {} };
+    await fbSet(`meses/${m.id}`, m);
+    meses = [{ ...m }];
+  }
+  state.meses = meses.sort((a,b) => a.year !== b.year ? a.year - b.year : a.month - b.month);
+  state.meses.forEach(m => { if (!m.pagos) m.pagos = {}; initPagos(m); });
+
+  renderJornada();
+};
+
+// ── HELPERS ─────────────────────────────────────────
+function getJ() { return state.jornadas[state.currentJornada]; }
+function getM() { return state.meses[state.currentMes]; }
+
+function initStats(j) {
+  state.players.forEach(p => {
+    if (!j.stats[p.id]) j.stats[p.id] = { asistio: false, pago: false, goles: 0, amarillas: 0, rojas: 0 };
+  });
+}
+function initPagos(m) {
+  state.players.forEach(p => {
+    if (!m.pagos[p.id]) m.pagos[p.id] = { status: 'pending', pagado: 0 };
   });
 }
 
-let saveTimer;
-function showSave(){
-  const dot=document.getElementById('save-dot');
-  if(dot){dot.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>dot.classList.remove('show'),1500);}
-}
+function av(name) { return (name||'??').slice(0,2).toUpperCase(); }
 
-function showTab(t,btn){
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  if(btn)btn.classList.add('active');
+// ── TABS ────────────────────────────────────────────
+let currentTab = 'jornada';
+function showTab(t, btn) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  if (btn) btn.classList.add('active');
   document.getElementById('tab-'+t).classList.add('active');
-  if(t==='tabla')renderTabla();
-  if(t==='plantel')renderPlantel();
-  if(t==='historial')renderHistorial();
+  currentTab = t;
+  if (t==='stats') renderStats();
+  if (t==='pagos') renderPagos();
+  if (t==='plantel') renderPlantel();
+  if (t==='historial') renderHistorial();
+}
+function renderCurrentTab() {
+  if (currentTab==='jornada') renderJornada();
+  else if (currentTab==='stats') renderStats();
+  else if (currentTab==='pagos') renderPagos();
+  else if (currentTab==='plantel') renderPlantel();
+  else if (currentTab==='historial') renderHistorial();
 }
 
-function prevJ(){if(state.currentJornada>0){state.currentJornada--;renderJornada();}}
-function nextJ(){if(state.currentJornada<state.jornadas.length-1){state.currentJornada++;renderJornada();}}
+// ── JORNADA ─────────────────────────────────────────
+function prevJ() { if (state.currentJornada>0) { state.currentJornada--; renderJornada(); } }
+function nextJ() { if (state.currentJornada<state.jornadas.length-1) { state.currentJornada++; renderJornada(); } }
 
-function addJornada(){
-  const n=state.jornadas.length+1;
-  const now=new Date();
-  const days=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-  const months=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  const fecha=days[now.getDay()]+' '+now.getDate()+' de '+months[now.getMonth()]+' '+now.getFullYear();
-  state.jornadas.push({num:n,fecha,rival:'',scoreHome:'',scoreAway:'',nota:'',stats:{}});
-  state.currentJornada=state.jornadas.length-1;
-  saveState();renderJornada();
+async function addJornada() {
+  const fecha = prompt('Fecha de la jornada (ej: Domingo 1 de junio 2025):');
+  if (!fecha || !fecha.trim()) return;
+  const n = state.jornadas.length + 1;
+  const j = { num: n, fecha: fecha.trim(), rival: '', scoreHome: '', scoreAway: '', nota: '', stats: {} };
+  initStats(j);
+  await fbSet(`jornadas/${n}`, j);
+  state.jornadas.push({ id: String(n), ...j });
+  state.currentJornada = state.jornadas.length - 1;
+  renderJornada();
 }
 
-function saveScore(){
-  const j=getJ();
-  j.scoreHome=document.getElementById('score-home').value;
-  j.scoreAway=document.getElementById('score-away').value;
-  j.rival=document.getElementById('rival-name').value;
+function setJornadaInputs() {
+  ['score-home','score-away','rival-name','j-fecha-edit','j-nota'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.disabled = !isAdmin;
+  });
+  document.querySelectorAll('#players-tbody .tog, #players-tbody .num-in').forEach(el => el.disabled = !isAdmin);
+}
+
+function renderJornada() {
+  const j = getJ();
+  initStats(j);
+  document.getElementById('j-num').textContent = 'JORNADA ' + j.num;
+  document.getElementById('j-date').textContent = j.fecha || '';
+  document.getElementById('score-home').value = j.scoreHome;
+  document.getElementById('score-away').value = j.scoreAway;
+  document.getElementById('rival-name').value = j.rival || '';
+  document.getElementById('j-fecha-edit').value = j.fecha || '';
+  document.getElementById('j-nota').value = j.nota || '';
   updateResultBadge(j);
-  saveState();
-}
-function saveNota(){getJ().nota=document.getElementById('j-nota').value;saveState();}
+  setJornadaInputs();
 
-function updateResultBadge(j){
-  const wrap=document.getElementById('result-badge-wrap');
-  if(!wrap)return;
-  const sh=parseInt(j.scoreHome),sa=parseInt(j.scoreAway);
-  if(j.scoreHome===''||j.scoreAway===''){wrap.innerHTML='';return;}
-  if(sh>sa) wrap.innerHTML='<span class="result-badge rb-win">VICTORIA</span>';
-  else if(sh===sa) wrap.innerHTML='<span class="result-badge rb-draw">EMPATE</span>';
+  const tbody = document.getElementById('players-tbody');
+  tbody.innerHTML = '';
+  state.players.filter(p => p.active).forEach(p => {
+    const s = j.stats[p.id];
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="player-cell"><div class="avatar">${av(p.name)}</div><span class="player-name">${p.name}</span></div></td>
+      <td><button class="tog ${s.asistio?'on':'off'}" data-pid="${p.id}" data-f="asistio" onclick="toggleStat(${p.id},'asistio')" ${!isAdmin?'disabled':''}></button></td>
+      <td><button class="tog ${s.pago?'on':'off'}" data-pid="${p.id}" data-f="pago" onclick="toggleStat(${p.id},'pago')" ${!isAdmin?'disabled':''}></button></td>
+      <td><input class="num-in" type="number" min="0" value="${s.goles}" oninput="setStat(${p.id},'goles',this.value)" ${!isAdmin?'disabled':''}></td>
+      <td><input class="num-in" type="number" min="0" value="${s.amarillas}" oninput="setStat(${p.id},'amarillas',this.value)" ${!isAdmin?'disabled':''}></td>
+      <td><input class="num-in" type="number" min="0" value="${s.rojas}" oninput="setStat(${p.id},'rojas',this.value)" ${!isAdmin?'disabled':''}></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  document.getElementById('jornada-loading').style.display = 'none';
+  document.getElementById('jornada-table').style.display = 'table';
+  updateTotales();
+}
+
+function updateResultBadge(j) {
+  const wrap = document.getElementById('result-badge-wrap');
+  if (!wrap) return;
+  const sh = parseInt(j.scoreHome), sa = parseInt(j.scoreAway);
+  if (j.scoreHome===''||j.scoreAway==='') { wrap.innerHTML=''; return; }
+  if (sh>sa) wrap.innerHTML='<span class="result-badge rb-win">VICTORIA</span>';
+  else if (sh===sa) wrap.innerHTML='<span class="result-badge rb-draw">EMPATE</span>';
   else wrap.innerHTML='<span class="result-badge rb-loss">DERROTA</span>';
 }
 
-function toggleStat(pid,field){
-  const j=getJ();initStats(j);
-  j.stats[pid][field]=!j.stats[pid][field];
-  const btn=document.querySelector(`[data-tog="${pid}-${field}"]`);
-  if(btn){btn.className='tog '+(j.stats[pid][field]?'on':'off');}
-  updateTotales();saveState();
-}
-
-function setStat(pid,field,val){
-  const j=getJ();initStats(j);
-  j.stats[pid][field]=Math.max(0,parseInt(val)||0);
-  updateTotales();saveState();
-}
-
-function updateTotales(){
-  const j=getJ();initStats(j);
-  let asist=0,pagos=0,goles=0;
-  state.players.forEach(p=>{const s=j.stats[p.id];if(s.asistio)asist++;if(s.pago)pagos++;goles+=s.goles;});
-  document.getElementById('totales-bar').innerHTML=`
+function updateTotales() {
+  const j = getJ(); initStats(j);
+  let asist=0, pagos=0, goles=0;
+  state.players.forEach(p => { const s=j.stats[p.id]; if(s.asistio)asist++; if(s.pago)pagos++; goles+=s.goles; });
+  document.getElementById('totales-bar').innerHTML = `
     <span class="tot-item"><span class="tot-dot" style="background:var(--green)"></span>${asist} asistentes</span>
-    <span class="tot-item"><span class="tot-dot" style="background:var(--yellow)"></span>${pagos} pagaron</span>
+    <span class="tot-item"><span class="tot-dot" style="background:var(--yellow)"></span>${pagos} pagaron cuota</span>
     <span class="tot-item"><span class="tot-dot" style="background:#fff"></span>${goles} goles</span>
   `;
 }
 
-function renderJornada(){
-  const j=getJ();initStats(j);
-  document.getElementById('j-num').textContent='JORNADA '+j.num;
-  document.getElementById('j-date').textContent=j.fecha;
-  document.getElementById('score-home').value=j.scoreHome;
-  document.getElementById('score-away').value=j.scoreAway;
-  document.getElementById('rival-name').value=j.rival||'';
-  document.getElementById('j-nota').value=j.nota||'';
-  updateResultBadge(j);
-  const tbody=document.getElementById('players-tbody');
-  tbody.innerHTML='';
-  state.players.filter(p=>p.active).forEach(p=>{
-    const s=j.stats[p.id];
-    const tr=document.createElement('tr');
-    tr.innerHTML=`
-      <td><div class="player-cell"><div class="avatar">${p.name.slice(0,2).toUpperCase()}</div><span class="player-name">${p.name}</span></div></td>
-      <td><button class="tog ${s.asistio?'on':'off'}" data-tog="${p.id}-asistio" onclick="toggleStat(${p.id},'asistio')"></button></td>
-      <td><button class="tog ${s.pago?'on':'off'}" data-tog="${p.id}-pago" onclick="toggleStat(${p.id},'pago')"></button></td>
-      <td><input class="num-in" type="number" min="0" value="${s.goles}" oninput="setStat(${p.id},'goles',this.value)"></td>
-      <td><input class="num-in" type="number" min="0" value="${s.amarillas}" oninput="setStat(${p.id},'amarillas',this.value)"></td>
-      <td><input class="num-in" type="number" min="0" value="${s.rojas}" oninput="setStat(${p.id},'rojas',this.value)"></td>
-    `;
-    tbody.appendChild(tr);
-  });
-  updateTotales();
+let saveTimer = {};
+function debounceSave(key, fn, delay=800) {
+  clearTimeout(saveTimer[key]);
+  saveTimer[key] = setTimeout(fn, delay);
 }
 
-function renderTabla(){
-  let wins=0,draws=0,losses=0,totalGoles=0,totalPagos=0;
-  const acc={};
-  state.players.forEach(p=>{acc[p.id]={name:p.name,pj:0,asistencias:0,pagos:0,goles:0,amarillas:0,rojas:0};});
-  state.jornadas.forEach(j=>{
+function saveScore() {
+  const j = getJ();
+  j.scoreHome = document.getElementById('score-home').value;
+  j.scoreAway = document.getElementById('score-away').value;
+  j.rival = document.getElementById('rival-name').value;
+  updateResultBadge(j);
+  debounceSave('score', () => fbSet(`jornadas/${j.num}`, { scoreHome: j.scoreHome, scoreAway: j.scoreAway, rival: j.rival }));
+}
+function saveFecha() {
+  const j = getJ();
+  j.fecha = document.getElementById('j-fecha-edit').value;
+  document.getElementById('j-date').textContent = j.fecha;
+  debounceSave('fecha', () => fbSet(`jornadas/${j.num}`, { fecha: j.fecha }));
+}
+function saveNota() {
+  const j = getJ();
+  j.nota = document.getElementById('j-nota').value;
+  debounceSave('nota', () => fbSet(`jornadas/${j.num}`, { nota: j.nota }));
+}
+
+function toggleStat(pid, field) {
+  if (!isAdmin) return;
+  const j = getJ(); initStats(j);
+  j.stats[pid][field] = !j.stats[pid][field];
+  const btn = document.querySelector(`[data-pid="${pid}"][data-f="${field}"]`);
+  if (btn) btn.className = 'tog ' + (j.stats[pid][field]?'on':'off');
+  updateTotales();
+  debounceSave(`stat-${pid}-${field}`, () => fbSet(`jornadas/${j.num}`, { stats: j.stats }));
+}
+function setStat(pid, field, val) {
+  if (!isAdmin) return;
+  const j = getJ(); initStats(j);
+  j.stats[pid][field] = Math.max(0, parseInt(val)||0);
+  updateTotales();
+  debounceSave(`stat-${pid}-${field}`, () => fbSet(`jornadas/${j.num}`, { stats: j.stats }));
+}
+
+// ── STATS ────────────────────────────────────────────
+function renderStats() {
+  let wins=0, draws=0, losses=0, totalGoles=0, totalPagos=0, golesFavor=0, golesContra=0;
+  const acc = {};
+  state.players.forEach(p => { acc[p.id] = { name: p.name, pj: 0, asistencias: 0, pagos: 0, goles: 0, amarillas: 0, rojas: 0 }; });
+  state.jornadas.forEach(j => {
     initStats(j);
-    const sh=parseInt(j.scoreHome),sa=parseInt(j.scoreAway);
-    if(j.scoreHome!==''&&j.scoreAway!==''){if(sh>sa)wins++;else if(sh===sa)draws++;else losses++;}
-    state.players.forEach(p=>{
-      const s=j.stats[p.id];if(!s)return;
+    const sh = parseInt(j.scoreHome)||0, sa = parseInt(j.scoreAway)||0;
+    if (j.scoreHome!==''&&j.scoreAway!=='') {
+      golesFavor+=sh; golesContra+=sa;
+      if (sh>sa) wins++; else if (sh===sa) draws++; else losses++;
+    }
+    state.players.forEach(p => {
+      const s = j.stats[p.id]; if(!s) return;
       acc[p.id].pj++;
-      if(s.asistio)acc[p.id].asistencias++;
-      if(s.pago){acc[p.id].pagos++;totalPagos++;}
-      acc[p.id].goles+=s.goles;totalGoles+=s.goles;
-      acc[p.id].amarillas+=s.amarillas;
-      acc[p.id].rojas+=s.rojas;
+      if (s.asistio) acc[p.id].asistencias++;
+      if (s.pago) { acc[p.id].pagos++; totalPagos++; }
+      acc[p.id].goles += s.goles; totalGoles += s.goles;
+      acc[p.id].amarillas += s.amarillas;
+      acc[p.id].rojas += s.rojas;
     });
   });
-  document.getElementById('metrics-grid').innerHTML=`
+
+  document.getElementById('metrics-grid').innerHTML = `
     <div class="metric-card"><div class="metric-val">${state.jornadas.length}</div><div class="metric-label">Jornadas</div></div>
     <div class="metric-card"><div class="metric-val green">${wins}</div><div class="metric-label">Victorias</div></div>
     <div class="metric-card"><div class="metric-val">${draws}</div><div class="metric-label">Empates</div></div>
     <div class="metric-card"><div class="metric-val red">${losses}</div><div class="metric-label">Derrotas</div></div>
-    <div class="metric-card"><div class="metric-val">${totalGoles}</div><div class="metric-label">Goles</div></div>
-    <div class="metric-card"><div class="metric-val">${totalPagos}</div><div class="metric-label">Pagos</div></div>
+    <div class="metric-card"><div class="metric-val">${golesFavor}</div><div class="metric-label">Goles favor</div></div>
+    <div class="metric-card"><div class="metric-val yellow">${golesFavor - golesContra >= 0 ? '+' : ''}${golesFavor - golesContra}</div><div class="metric-label">Diferencia</div></div>
   `;
-  const sorted=Object.values(acc).sort((a,b)=>b.goles-a.goles||b.asistencias-a.asistencias);
-  const tbody=document.getElementById('tabla-tbody');
-  tbody.innerHTML='';
-  sorted.forEach((s,i)=>{
-    const tr=document.createElement('tr');
-    const isTop=i<3;
-    tr.innerHTML=`
-      <td><span class="rank-num ${isTop?'top':''}">${i+1}</span></td>
-      <td><div class="player-cell"><div class="avatar">${s.name.slice(0,2).toUpperCase()}</div><span class="player-name">${s.name}</span></div></td>
-      <td>${s.pj}</td>
-      <td>${s.asistencias}</td>
-      <td>${s.pagos}</td>
-      <td style="font-weight:600;color:${s.goles>0?'var(--green)':'inherit'}">${s.goles}</td>
-      <td>${s.amarillas>0?`<span style="color:var(--yellow);font-weight:600">${s.amarillas}</span>`:'—'}</td>
-      <td>${s.rojas>0?`<span style="color:var(--red);font-weight:600">${s.rojas}</span>`:'—'}</td>
+
+  const byGoles = Object.values(acc).filter(p=>p.goles>0).sort((a,b)=>b.goles-a.goles).slice(0,3);
+  const byAsist = Object.values(acc).filter(p=>p.asistencias>0).sort((a,b)=>b.asistencias-a.asistencias).slice(0,3);
+  const ranks = ['r1','r2','r3'];
+
+  document.getElementById('top3-grid').innerHTML = `
+    <div class="top3-card">
+      <div class="top3-title">⚽ Top Goleadores</div>
+      ${byGoles.length ? byGoles.map((p,i)=>`
+        <div class="top3-item">
+          <span class="top3-rank ${ranks[i]}">${i+1}</span>
+          <div class="avatar" style="width:24px;height:24px;font-size:10px">${av(p.name)}</div>
+          <span class="top3-name">${p.name}</span>
+          <span class="top3-val">${p.goles}</span>
+        </div>`).join('') : '<div style="color:var(--text3);font-size:13px;padding:8px 0">Sin goles aún</div>'}
+    </div>
+    <div class="top3-card">
+      <div class="top3-title">🏃 Top Asistencia</div>
+      ${byAsist.length ? byAsist.map((p,i)=>`
+        <div class="top3-item">
+          <span class="top3-rank ${ranks[i]}">${i+1}</span>
+          <div class="avatar" style="width:24px;height:24px;font-size:10px">${av(p.name)}</div>
+          <span class="top3-name">${p.name}</span>
+          <span class="top3-val">${p.asistencias}</span>
+        </div>`).join('') : '<div style="color:var(--text3);font-size:13px;padding:8px 0">Sin datos aún</div>'}
+    </div>
+  `;
+
+  const sorted = Object.values(acc).sort((a,b) => b.asistencias - a.asistencias);
+  const maxPJ = state.jornadas.length || 1;
+  const tbody = document.getElementById('compromiso-tbody');
+  tbody.innerHTML = '';
+  sorted.forEach(p => {
+    const pct = maxPJ > 0 ? Math.round((p.asistencias / maxPJ)*100) : 0;
+    const color = pct >= 75 ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : 'var(--red)';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="player-cell"><div class="avatar">${av(p.name)}</div><span class="player-name">${p.name}</span></div></td>
+      <td>${p.pj}</td>
+      <td>${p.asistencias}</td>
+      <td style="min-width:80px">
+        <div style="font-size:12px;color:${color};margin-bottom:3px">${pct}%</div>
+        <div class="commit-bar-wrap"><div class="commit-bar" style="width:${pct}%;background:${color}"></div></div>
+      </td>
+      <td style="color:var(--green);font-weight:600">${p.goles}</td>
     `;
     tbody.appendChild(tr);
   });
+
+  const sortedTabla = Object.values(acc).sort((a,b)=>b.goles-a.goles);
+  const tbody2 = document.getElementById('tabla-tbody');
+  tbody2.innerHTML = '';
+  sortedTabla.forEach((p,i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="color:var(--text3);font-size:12px">${i+1}</td>
+      <td><div class="player-cell"><div class="avatar">${av(p.name)}</div><span class="player-name">${p.name}</span></div></td>
+      <td>${p.pj}</td>
+      <td>${p.asistencias}</td>
+      <td style="font-weight:600;color:${p.goles>0?'var(--green)':'inherit'}">${p.goles}</td>
+      <td>${p.amarillas>0?`<span style="color:var(--yellow);font-weight:600">${p.amarillas}</span>`:'—'}</td>
+      <td>${p.rojas>0?`<span style="color:var(--red);font-weight:600">${p.rojas}</span>`:'—'}</td>
+    `;
+    tbody2.appendChild(tr);
+  });
 }
 
-function renderPlantel(){
-  const tbody=document.getElementById('plantel-tbody');
-  tbody.innerHTML='';
-  state.players.forEach((p,i)=>{
-    const tr=document.createElement('tr');
-    tr.innerHTML=`
+// ── PAGOS ────────────────────────────────────────────
+function prevMes() { if (state.currentMes>0) { state.currentMes--; renderPagos(); } }
+function nextMes() { if (state.currentMes<state.meses.length-1) { state.currentMes++; renderPagos(); } }
+
+async function addMes() {
+  const now = new Date();
+  const month = parseInt(prompt('Número de mes (1-12):', now.getMonth()+1)) - 1;
+  const year = parseInt(prompt('Año:', now.getFullYear()));
+  if (isNaN(month)||isNaN(year)) return;
+  const id = `${year}-${month}`;
+  if (state.meses.find(m=>m.id===id)) { alert('Este mes ya existe'); return; }
+  const m = { id, year, month, monto: 0, pagos: {} };
+  initPagos(m);
+  await fbSet(`meses/${id}`, m);
+  state.meses.push(m);
+  state.meses.sort((a,b)=>a.year!==b.year?a.year-b.year:a.month-b.month);
+  state.currentMes = state.meses.findIndex(x=>x.id===id);
+  renderPagos();
+}
+
+function setPagosInputs() {
+  const el = document.getElementById('monto-mes');
+  if (el) el.disabled = !isAdmin;
+  document.querySelectorAll('#pagos-tbody .monto-in').forEach(e=>e.disabled=!isAdmin);
+}
+
+function renderPagos() {
+  const m = getM(); if (!m) return;
+  initPagos(m);
+  document.getElementById('mes-title').textContent = `${MESES[m.month].toUpperCase()} ${m.year}`;
+  document.getElementById('mes-monto-label').textContent = m.monto ? `Monto: $${m.monto}` : 'Monto: sin definir';
+  document.getElementById('monto-mes').value = m.monto || '';
+  document.getElementById('monto-mes').disabled = !isAdmin;
+  document.getElementById('pagos-loading').style.display = 'none';
+  document.getElementById('pagos-content').style.display = 'block';
+
+  const tbody = document.getElementById('pagos-tbody');
+  tbody.innerHTML = '';
+  let totalPagado=0, totalPendiente=0, countPaid=0, countPartial=0, countPending=0;
+
+  state.players.filter(p=>p.active).forEach(p => {
+    const pg = m.pagos[p.id] || { status:'pending', pagado:0 };
+    const monto = m.monto || 0;
+    const resta = Math.max(0, monto - (pg.pagado||0));
+    if (pg.status==='paid') countPaid++;
+    else if (pg.status==='partial') countPartial++;
+    else countPending++;
+    totalPagado += pg.pagado||0;
+    totalPendiente += resta;
+
+    const statusLabels = { paid:'Pagado', partial:'Parcial', pending:'Pendiente' };
+    const statusClass = { paid:'ps-paid', partial:'ps-partial', pending:'ps-pending' };
+    const nextStatus = { paid:'pending', partial:'paid', pending:'partial' };
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="player-cell"><div class="avatar">${av(p.name)}</div><span class="player-name">${p.name}</span></div></td>
+      <td>
+        <span class="pago-status ${statusClass[pg.status]}" 
+          onclick="${isAdmin?`cycleStatus(${p.id})`:''}" 
+          style="${isAdmin?'cursor:pointer':'cursor:default'}"
+          title="${isAdmin?'Clic para cambiar estado':''}">
+          ${statusLabels[pg.status]}
+        </span>
+      </td>
+      <td><input class="monto-in" type="number" min="0" value="${pg.pagado||''}" placeholder="$0" oninput="setPagado(${p.id},this.value)" ${!isAdmin?'disabled':''}></td>
+      <td style="font-size:13px;color:${resta>0?'var(--red)':'var(--green)'}">${resta>0?'$'+resta:'✓'}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('pagos-summary').innerHTML = `
+    <span><span style="color:var(--green)">●</span> ${countPaid} pagados</span>
+    <span><span style="color:var(--yellow)">●</span> ${countPartial} parciales</span>
+    <span><span style="color:var(--red)">●</span> ${countPending} pendientes</span>
+    <span style="margin-left:auto">Recaudado: <strong style="color:var(--green)">$${totalPagado}</strong></span>
+    <span>Pendiente: <strong style="color:var(--red)">$${totalPendiente}</strong></span>
+  `;
+}
+
+function cycleStatus(pid) {
+  if (!isAdmin) return;
+  const m = getM(); initPagos(m);
+  const cur = m.pagos[pid].status;
+  const next = { paid:'pending', partial:'paid', pending:'partial' };
+  m.pagos[pid].status = next[cur];
+  debounceSave(`pago-${pid}`, () => fbSet(`meses/${m.id}`, { pagos: m.pagos }));
+  renderPagos();
+}
+function setPagado(pid, val) {
+  if (!isAdmin) return;
+  const m = getM(); initPagos(m);
+  m.pagos[pid].pagado = Math.max(0, parseInt(val)||0);
+  const monto = m.monto||0;
+  if (m.pagos[pid].pagado >= monto && monto > 0) m.pagos[pid].status = 'paid';
+  else if (m.pagos[pid].pagado > 0) m.pagos[pid].status = 'partial';
+  else m.pagos[pid].status = 'pending';
+  debounceSave(`pagado-${pid}`, () => fbSet(`meses/${m.id}`, { pagos: m.pagos }));
+  renderPagos();
+}
+function saveMonto() {
+  if (!isAdmin) return;
+  const m = getM();
+  m.monto = parseInt(document.getElementById('monto-mes').value)||0;
+  document.getElementById('mes-monto-label').textContent = m.monto ? `Monto: $${m.monto}` : 'Monto: sin definir';
+  debounceSave('monto', () => fbSet(`meses/${m.id}`, { monto: m.monto }));
+}
+
+// ── PLANTEL ──────────────────────────────────────────
+function renderPlantel() {
+  const tbody = document.getElementById('plantel-tbody');
+  tbody.innerHTML = '';
+  state.players.forEach((p, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
       <td style="color:var(--text3);font-size:12px">${i+1}</td>
       <td>
         <div class="player-cell">
-          <div class="avatar">${p.name.slice(0,2).toUpperCase()}</div>
-          <input class="name-edit" value="${p.name}" onchange="renamePlayer(${i},this.value)">
+          <div class="avatar">${av(p.name)}</div>
+          <input class="name-edit" value="${p.name}" onchange="renamePlayer(${p.id},this.value)" ${!isAdmin?'disabled':''}>
         </div>
       </td>
       <td>
-        <select class="pos-select" onchange="state.players[${i}].position=this.value;saveState()">
+        <select class="pos-select" onchange="changePos(${p.id},this.value)" ${!isAdmin?'disabled':''}>
           ${POSITIONS.map(pos=>`<option${p.position===pos?' selected':''}>${pos}</option>`).join('')}
         </select>
       </td>
       <td><span class="status-badge ${p.active?'sb-active':'sb-inactive'}">${p.active?'Activo':'Baja'}</span></td>
-      <td><button class="btn" style="font-size:12px;padding:5px 10px" onclick="togglePlayer(${i})">${p.active?'Dar de baja':'Reactivar'}</button></td>
+      <td>${isAdmin?`<button class="btn" style="font-size:11px;padding:4px 8px" onclick="togglePlayer(${p.id})">${p.active?'Dar de baja':'Activar'}</button>`:''}</td>
     `;
     tbody.appendChild(tr);
   });
 }
 
-function renamePlayer(i,name){
-  if(name.trim()){state.players[i].name=name.trim();saveState();renderJornada();}
+async function renamePlayer(id, name) {
+  if (!isAdmin||!name.trim()) return;
+  const p = state.players.find(x=>x.id===id);
+  if (p) { p.name=name.trim(); await fbSet(`players/${id}`, { name: p.name }); renderJornada(); }
 }
-function togglePlayer(i){state.players[i].active=!state.players[i].active;saveState();renderPlantel();renderJornada();}
-
-function addPlayer(){
-  const name=prompt('Nombre del jugador:');
-  if(name&&name.trim()){
-    const id=Date.now();
-    state.players.push({id,name:name.trim(),position:'Polivalente',active:true});
-    state.jornadas.forEach(j=>{j.stats[id]={asistio:false,pago:false,goles:0,amarillas:0,rojas:0};});
-    saveState();renderPlantel();renderJornada();
-  }
+async function changePos(id, pos) {
+  if (!isAdmin) return;
+  const p = state.players.find(x=>x.id===id);
+  if (p) { p.position=pos; await fbSet(`players/${id}`, { position: pos }); }
+}
+async function togglePlayer(id) {
+  if (!isAdmin) return;
+  const p = state.players.find(x=>x.id===id);
+  if (p) { p.active=!p.active; await fbSet(`players/${id}`, { active: p.active }); renderPlantel(); }
+}
+async function addPlayer() {
+  if (!isAdmin) return;
+  const name = prompt('Nombre del jugador:');
+  if (!name||!name.trim()) return;
+  const id = Date.now();
+  const p = { id, name: name.trim(), position: 'Polivalente', active: true, order: state.players.length };
+  await fbSet(`players/${id}`, p);
+  state.players.push(p);
+  state.jornadas.forEach(j => { j.stats[id]={asistio:false,pago:false,goles:0,amarillas:0,rojas:0}; });
+  state.meses.forEach(m => { m.pagos[id]={status:'pending',pagado:0}; });
+  renderPlantel();
 }
 
-function renderHistorial(){
-  const div=document.getElementById('historial-list');
-  if(!state.jornadas.length){div.innerHTML='<div class="empty-state">No hay jornadas registradas.</div>';return;}
-  div.innerHTML='';
-  [...state.jornadas].reverse().forEach(j=>{
+// ── HISTORIAL ─────────────────────────────────────────
+function renderHistorial() {
+  const div = document.getElementById('historial-list');
+  if (!state.jornadas.length) { div.innerHTML='<div class="empty-state">Sin jornadas</div>'; return; }
+  div.innerHTML = '';
+  [...state.jornadas].reverse().forEach(j => {
     initStats(j);
-    let asist=0,goles=0,pagos=0;
-    state.players.forEach(p=>{const s=j.stats[p.id];if(s.asistio)asist++;goles+=s.goles;if(s.pago)pagos++;});
-    const sh=parseInt(j.scoreHome),sa=parseInt(j.scoreAway);
+    let asist=0, goles=0, pagos=0;
+    state.players.forEach(p => { const s=j.stats[p.id]; if(s.asistio)asist++; goles+=s.goles; if(s.pago)pagos++; });
+    const sh=parseInt(j.scoreHome)||0, sa=parseInt(j.scoreAway)||0;
     let badge='';
-    if(j.scoreHome!==''&&j.scoreAway!==''){
-      if(sh>sa)badge='<span class="result-badge rb-win">VICTORIA</span>';
-      else if(sh===sa)badge='<span class="result-badge rb-draw">EMPATE</span>';
+    if (j.scoreHome!==''&&j.scoreAway!=='') {
+      if (sh>sa) badge='<span class="result-badge rb-win">VICTORIA</span>';
+      else if (sh===sa) badge='<span class="result-badge rb-draw">EMPATE</span>';
       else badge='<span class="result-badge rb-loss">DERROTA</span>';
     }
-    const card=document.createElement('div');
-    card.className='h-card';
-    card.innerHTML=`
-      <div class="h-top">
-        <span class="h-jnum">JORNADA ${j.num}</span>
-        ${badge||'<span class="result-badge rb-draw" style="opacity:.4">SIN RESULTADO</span>'}
-      </div>
+    const card = document.createElement('div');
+    card.className = 'h-card';
+    card.innerHTML = `
+      <div class="h-top"><span class="h-jnum">JORNADA ${j.num}</span>${badge||'<span class="result-badge rb-draw" style="opacity:.4">SIN RESULTADO</span>'}</div>
       <div class="h-date">${j.fecha}${j.rival?' · vs '+j.rival:''}</div>
       ${j.scoreHome!==''?`<div class="h-score">${j.scoreHome} – ${j.scoreAway}</div>`:''}
       <div class="h-meta">
-        <span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-          ${asist} jugadores
-        </span>
-        <span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-          ${goles} goles
-        </span>
-        <span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          ${pagos} pagaron
-        </span>
+        <span>👥 ${asist} jugadores</span>
+        <span>⚽ ${goles} goles</span>
+        <span>💰 ${pagos} pagaron</span>
       </div>
-      ${j.nota?`<div style="font-size:12px;color:var(--text3);margin-top:8px;font-style:italic">${j.nota}</div>`:''}
+      ${j.nota?`<div style="font-size:12px;color:var(--text3);margin-top:6px;font-style:italic">${j.nota}</div>`:''}
     `;
-    card.onclick=()=>{
-      state.currentJornada=state.jornadas.indexOf(j);
-      document.querySelectorAll('.nav-btn').forEach((b,i)=>{b.classList.toggle('active',i===0);});
-      document.querySelectorAll('.section').forEach((s,i)=>{s.classList.toggle('active',i===0);});
+    card.onclick = () => {
+      state.currentJornada = state.jornadas.indexOf(j);
+      document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===0));
+      document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===0));
+      currentTab='jornada';
       renderJornada();
     };
     div.appendChild(card);
   });
 }
-
-// Save indicator in header
-document.getElementById('header-meta').innerHTML='Temporada 2025 <span id="save-dot" class="save-dot"></span>';
-
-// Init
-renderJornada();
 </script>
 </body>
 </html>

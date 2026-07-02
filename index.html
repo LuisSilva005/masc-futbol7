@@ -250,7 +250,6 @@ main{max-width:720px;margin:0 auto;padding:16px 14px 60px}
       <tr>
         <th>Jugador</th>
         <th>Asistió</th>
-        <th>Pagó</th>
         <th>Goles</th>
         <th>🟨</th>
         <th>🟥</th>
@@ -577,7 +576,6 @@ function renderJornada() {
     tr.innerHTML = `
       <td><div class="player-cell"><div class="avatar">${av(p.name)}</div><span class="player-name">${p.name}</span>${p.jersey?`<span style="font-size:11px;color:var(--text3);margin-left:2px">#${p.jersey}</span>`:''}</div></td>
       <td><button class="tog ${s.asistio?'on':'off'}" data-pid="${p.id}" data-f="asistio" onclick="toggleStat(${p.id},'asistio')" ${!isAdmin?'disabled':''}></button></td>
-      <td><button class="tog ${s.pago?'on':'off'}" data-pid="${p.id}" data-f="pago" onclick="toggleStat(${p.id},'pago')" ${!isAdmin?'disabled':''}></button></td>
       <td><input class="num-in" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="${s.goles}" oninput="sanitizeNum(this);setStat(${p.id},'goles',this.value)" ${!isAdmin?'disabled':''}></td>
       <td><input class="num-in" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="${s.amarillas}" oninput="sanitizeNum(this);setStat(${p.id},'amarillas',this.value)" ${!isAdmin?'disabled':''}></td>
       <td><input class="num-in" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="${s.rojas}" oninput="sanitizeNum(this);setStat(${p.id},'rojas',this.value)" ${!isAdmin?'disabled':''}></td>
@@ -601,11 +599,10 @@ function updateResultBadge(j) {
 
 function updateTotales() {
   const j = getJ(); initStats(j);
-  let asist=0, pagos=0, goles=0;
-  state.players.forEach(p => { const s=j.stats[p.id]; if(s.asistio)asist++; if(s.pago)pagos++; goles+=s.goles; });
+  let asist=0, goles=0;
+  state.players.forEach(p => { const s=j.stats[p.id]; if(s.asistio)asist++; goles+=s.goles; });
   document.getElementById('totales-bar').innerHTML = `
     <span class="tot-item"><span class="tot-dot" style="background:var(--green)"></span>${asist} asistentes</span>
-    <span class="tot-item"><span class="tot-dot" style="background:var(--yellow)"></span>${pagos} pagaron cuota</span>
     <span class="tot-item"><span class="tot-dot" style="background:#fff"></span>${goles} goles</span>
   `;
 }
@@ -965,8 +962,8 @@ function renderHistorial() {
   div.innerHTML = '';
   [...state.jornadas].reverse().forEach(j => {
     initStats(j);
-    let asist=0, goles=0, pagos=0;
-    state.players.forEach(p => { const s=j.stats[p.id]; if(s.asistio)asist++; goles+=s.goles; if(s.pago)pagos++; });
+    let asist=0, goles=0;
+    state.players.forEach(p => { const s=j.stats[p.id]; if(s.asistio)asist++; goles+=s.goles; });
     const sh=parseInt(j.scoreHome)||0, sa=parseInt(j.scoreAway)||0;
     let badge='';
     if (j.scoreHome!==''&&j.scoreAway!=='') {
@@ -983,7 +980,6 @@ function renderHistorial() {
       <div class="h-meta">
         <span>👥 ${asist} jugadores</span>
         <span>⚽ ${goles} goles</span>
-        <span>💰 ${pagos} pagaron</span>
       </div>
       ${j.nota?`<div style="font-size:12px;color:var(--text3);margin-top:6px;font-style:italic">${j.nota}</div>`:''}
     `;

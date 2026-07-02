@@ -229,12 +229,12 @@ main{max-width:720px;margin:0 auto;padding:16px 14px 60px}
     <div class="partido-scores">
       <div class="team-side">
         <div class="team-name-label">MASC</div>
-        <input class="score-in" type="number" min="0" id="score-home" placeholder="—" oninput="saveScore()" disabled>
+        <input class="score-in" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" id="score-home" placeholder="—" oninput="sanitizeNum(this);saveScore()" disabled>
       </div>
       <div class="vs-tag">VS</div>
       <div class="team-side away">
         <div class="team-name-label">RIVAL</div>
-        <input class="score-in" type="number" min="0" id="score-away" placeholder="—" oninput="saveScore()" disabled>
+        <input class="score-in" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" id="score-away" placeholder="—" oninput="sanitizeNum(this);saveScore()" disabled>
       </div>
     </div>
     <input class="text-in" type="text" id="rival-name" placeholder="Nombre del rival..." oninput="saveScore()" disabled style="margin-bottom:8px">
@@ -306,7 +306,7 @@ main{max-width:720px;margin:0 auto;padding:16px 14px 60px}
     <div class="card" style="padding:10px 14px;margin-bottom:10px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
         <span style="font-size:13px;color:var(--text2)">Monto mensual:</span>
-        <input class="monto-in" type="number" id="monto-mes" placeholder="$" oninput="saveMonto()" disabled>
+        <input class="monto-in" type="text" inputmode="numeric" pattern="[0-9]*" id="monto-mes" placeholder="$" oninput="sanitizeNum(this);saveMonto()" disabled>
       </div>
     </div>
     <table class="stats-table">
@@ -439,6 +439,14 @@ async function fbSet(path, data) {
   const parts = path.split('/');
   await window._db.collection(parts[0]).doc(parts[1]).set(data, { merge: true });
 }
+async function fbDelete(path) {
+  const parts = path.split('/');
+  await window._db.collection(parts[0]).doc(parts[1]).delete();
+}
+async function fbUpdate(path, data) {
+  const parts = path.split('/');
+  await window._db.collection(parts[0]).doc(parts[1]).update(data);
+}
 async function fbGetCol(path) {
   const snap = await window._db.collection(path).get();
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -570,9 +578,9 @@ function renderJornada() {
       <td><div class="player-cell"><div class="avatar">${av(p.name)}</div><span class="player-name">${p.name}</span>${p.jersey?`<span style="font-size:11px;color:var(--text3);margin-left:2px">#${p.jersey}</span>`:''}</div></td>
       <td><button class="tog ${s.asistio?'on':'off'}" data-pid="${p.id}" data-f="asistio" onclick="toggleStat(${p.id},'asistio')" ${!isAdmin?'disabled':''}></button></td>
       <td><button class="tog ${s.pago?'on':'off'}" data-pid="${p.id}" data-f="pago" onclick="toggleStat(${p.id},'pago')" ${!isAdmin?'disabled':''}></button></td>
-      <td><input class="num-in" type="number" min="0" value="${s.goles}" oninput="setStat(${p.id},'goles',this.value)" ${!isAdmin?'disabled':''}></td>
-      <td><input class="num-in" type="number" min="0" value="${s.amarillas}" oninput="setStat(${p.id},'amarillas',this.value)" ${!isAdmin?'disabled':''}></td>
-      <td><input class="num-in" type="number" min="0" value="${s.rojas}" oninput="setStat(${p.id},'rojas',this.value)" ${!isAdmin?'disabled':''}></td>
+      <td><input class="num-in" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="${s.goles}" oninput="sanitizeNum(this);setStat(${p.id},'goles',this.value)" ${!isAdmin?'disabled':''}></td>
+      <td><input class="num-in" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="${s.amarillas}" oninput="sanitizeNum(this);setStat(${p.id},'amarillas',this.value)" ${!isAdmin?'disabled':''}></td>
+      <td><input class="num-in" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="${s.rojas}" oninput="sanitizeNum(this);setStat(${p.id},'rojas',this.value)" ${!isAdmin?'disabled':''}></td>
     `;
     tbody.appendChild(tr);
   });
@@ -600,6 +608,12 @@ function updateTotales() {
     <span class="tot-item"><span class="tot-dot" style="background:var(--yellow)"></span>${pagos} pagaron cuota</span>
     <span class="tot-item"><span class="tot-dot" style="background:#fff"></span>${goles} goles</span>
   `;
+}
+
+function sanitizeNum(el) {
+  // Solo dígitos; evita el bug de teclados Android con type="number"
+  const clean = el.value.replace(/[^0-9]/g, '');
+  if (el.value !== clean) el.value = clean;
 }
 
 let saveTimer = {};
@@ -809,7 +823,7 @@ function renderPagos() {
           ${statusLabels[pg.status]}
         </span>
       </td>
-      <td><input class="monto-in" type="number" min="0" value="${pg.pagado||''}" placeholder="$0" oninput="setPagado(${p.id},this.value)" ${!isAdmin?'disabled':''}></td>
+      <td><input class="monto-in" type="text" inputmode="numeric" pattern="[0-9]*" value="${pg.pagado||''}" placeholder="$0" oninput="sanitizeNum(this);setPagado(${p.id},this.value)" ${!isAdmin?'disabled':''}></td>
       <td style="font-size:13px;color:${resta>0?'var(--red)':'var(--green)'}">${resta>0?'$'+resta:'✓'}</td>
     `;
     tbody.appendChild(tr);
@@ -867,7 +881,7 @@ function renderPlantel() {
         </div>
       </td>
       <td>
-        <input class="num-in" type="number" min="0" max="99" value="${p.jersey||''}" placeholder="—" style="width:46px" onchange="changeJersey(${p.id},this.value)" ${!isAdmin?'disabled':''}>
+        <input class="num-in" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="${p.jersey||''}" placeholder="—" style="width:46px" oninput="sanitizeNum(this)" onchange="changeJersey(${p.id},this.value)" ${!isAdmin?'disabled':''}>
       </td>
       <td>
         <select class="pos-select" onchange="changePos(${p.id},this.value)" ${!isAdmin?'disabled':''}>
@@ -875,7 +889,7 @@ function renderPlantel() {
         </select>
       </td>
       <td><span class="status-badge ${p.active?'sb-active':'sb-inactive'}">${p.active?'Activo':'Baja'}</span></td>
-      <td>${isAdmin?`<button class="btn" style="font-size:11px;padding:4px 8px" onclick="togglePlayer(${p.id})">${p.active?'Dar de baja':'Activar'}</button>`:''}</td>
+      <td style="white-space:nowrap">${isAdmin?`<button class="btn" style="font-size:11px;padding:4px 8px" onclick="togglePlayer(${p.id})">${p.active?'Dar de baja':'Activar'}</button> <button class="btn" style="font-size:11px;padding:4px 8px;color:var(--red);border-color:var(--red-dim)" onclick="deletePlayer(${p.id})">🗑</button>`:''}</td>
     `;
     tbody.appendChild(tr);
   });
@@ -912,6 +926,36 @@ async function addPlayer() {
   state.jornadas.forEach(j => { j.stats[id]={asistio:false,pago:false,goles:0,amarillas:0,rojas:0}; });
   state.meses.forEach(m => { m.pagos[id]={status:'pending',pagado:0}; });
   renderPlantel();
+}
+
+async function deletePlayer(id) {
+  if (!isAdmin) return;
+  const p = state.players.find(x=>x.id===id);
+  if (!p) return;
+  const ok = confirm(`¿Eliminar a ${p.name} definitivamente?\n\nSe borrarán también sus estadísticas y pagos de todas las jornadas. Esta acción no se puede deshacer.\n\n(Si solo quieres que no aparezca en la lista, usa "Dar de baja".)`);
+  if (!ok) return;
+  try {
+    await fbDelete(`players/${id}`);
+    // Limpiar sus stats en todas las jornadas
+    for (const j of state.jornadas) {
+      if (j.stats && j.stats[id]) {
+        delete j.stats[id];
+        await fbUpdate(`jornadas/${j.num}`, { [`stats.${id}`]: firebase.firestore.FieldValue.delete() });
+      }
+    }
+    // Limpiar sus pagos en todos los meses
+    for (const m of state.meses) {
+      if (m.pagos && m.pagos[id]) {
+        delete m.pagos[id];
+        await fbUpdate(`meses/${m.id}`, { [`pagos.${id}`]: firebase.firestore.FieldValue.delete() });
+      }
+    }
+    state.players = state.players.filter(x=>x.id!==id);
+    renderPlantel();
+    renderJornada();
+  } catch(e) {
+    alert('Error al eliminar: ' + e.message);
+  }
 }
 
 // ── HISTORIAL ─────────────────────────────────────────
